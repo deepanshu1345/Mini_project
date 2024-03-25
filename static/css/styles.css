@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.register{
+    width: 500px;
+}
+
+.register label{
+    margin:1%;
+}
+
+.register input{
+    width:100%;
+    margin:1%;
+    padding:1%;
+}
+.register button{
+    margin:1%;
+    padding: 1% 5%;
+}
+a{
+    text-decoration:none;
+}
