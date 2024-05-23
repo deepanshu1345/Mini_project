@@ -31,6 +31,7 @@ logging.basicConfig(level=logging.ERROR)
 
 gender = ['Male', 'Female', 'Other']
 fs = gridfs.GridFS(mongo.db)
+ENTRIES_PER_PAGE = 10
 
 
 # ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -701,15 +702,35 @@ def update_status():
         print(e)
         flash(f"Error updating order status: {e}", 'error')
 
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('mgrdashboard'))
 
 
 # =======================Admin============================
-
 @app.route("/admin")
 def admindashboard():
     if 'admin' in session:
-        return render_template("Admin//a_dashboard.html")
+        # Get query parameters for pagination
+        page = int(request.args.get('page', 1))
+        type = request.args.get('type')  # 'user' or 'manager'
+
+        # Calculate the offset to skip the entries for previous pages
+        offset = (page - 1) * ENTRIES_PER_PAGE
+
+        # Query the database based on the type
+        if type == 'user':
+            entries = users.find().skip(offset).limit(ENTRIES_PER_PAGE)
+            total_entries = users.count_documents({})
+        elif type == 'manager':
+            entries = Cafes.find().skip(offset).limit(ENTRIES_PER_PAGE)
+            total_entries = Cafes.count_documents({})
+        else:
+            # If type is not specified or invalid, return an error message
+            return "Invalid type parameter"
+
+        # Calculate total number of pages
+        total_pages = (total_entries + ENTRIES_PER_PAGE - 1) // ENTRIES_PER_PAGE
+
+        return render_template('view_database.html', entries=entries, page=page, total_pages=total_pages, type=type)
     return redirect(url_for('admin_login'))
 
 
