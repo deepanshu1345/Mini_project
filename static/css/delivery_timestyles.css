@@ -1,0 +1,67 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.delivery-time {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.delivery-time h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.order-details {
+    list-style: none;
+    padding: 0;
+}
+
+.order-details li {
+    margin-bottom: 10px;
+}
+
+.order-details .attribute {
+    font-weight: bold;
+}
+
+.clock-image {
+    margin-top: 20px;
+}
+
+.clock-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}

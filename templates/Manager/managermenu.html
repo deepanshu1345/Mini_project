@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Menu</title>
+    <link rel="stylesheet" href="static/css/managermenustyles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Cafe Name</h1>
+            <form action="#" class="search-form">
+                <input type="text" placeholder="Search for items...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </header>
+
+    <section class="menu-list">
+        <div class="container">
+            <h2>Menu List</h2>
+            <ul>
+
+                <!-- Add more menu items here -->
+            </ul>
+            <button class="add-item-in-list" onclick="addItemInList()">Add Item in List</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Cafe Name</p>
+        </div>
+    </footer>
+
+    <script>
+        function increaseQuantity(button) {
+            var quantityElement = button.parentNode.querySelector('.quantity-value');
+            var quantity = parseInt(quantityElement.textContent);
+            quantityElement.textContent = quantity + 1;
+        }
+
+        function decreaseQuantity(button) {
+            var quantityElement = button.parentNode.querySelector('.quantity-value');
+            var quantity = parseInt(quantityElement.textContent);
+            if (quantity > 1) {
+                quantityElement.textContent = quantity - 1;
+            }
+        }
+
+        function addToCart(button) {
+            var itemName = button.parentNode.querySelector('.item-name').textContent;
+            var quantity = parseInt(button.parentNode.querySelector('.quantity-value').textContent);
+            alert(quantity + ' ' + itemName + ' added to cart!');
+        }
+
+        function addItemInList() {
+            // Implement functionality to add item to list here
+            alert('New item added to list!');
+        }
+    </script>
+</body>
+</html>

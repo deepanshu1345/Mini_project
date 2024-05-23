@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/order_detailsstyle.css') }}">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>Order Details</h1>
+    </div>
+</header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/display_order">Order</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/logout">Logout</a></li>
+
+        </ul>
+    </nav>
+
+<section class="order-details">
+    <div class="container">
+        {% if orders %}
+        <table>
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Placed on</th>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Status</th>
+
+            </tr>
+            </thead>
+            {% for order in orders %}
+
+
+            <tbody>
+            {% for item in order['items'] %}
+            <tr>
+                <td>{{ order['order_id'] }}</td>
+                <td>{{ order.timestamp}}</td>
+                <td>{{ item.item_name }}</td>
+                <td>${{ item.item_price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.total_price }}</td>
+                <td>{{order.status }}</td>
+
+                {% endfor %}
+            </tr>
+
+
+            {% endfor %}
+            </tbody>
+        </table>
+        <h3>Overall Total Price: ${{ overall_total_price }}</h3>
+        {% else %}
+        <p>Your order is empty.</p>
+        {% endif %}
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Order Details</p>
+</footer>
+</body>
+</html>

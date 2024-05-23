@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/managermenulistpagestyle.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Menu</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/display_order">Order</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/logout">Logout</a></li>
+
+        </ul>
+    </nav>
+
+    <section class="main-content">
+        <h2>Menu List</h2>
+
+        {% if menu_items %}
+        <div class="menu-items">
+            {% for item in menu_items %}
+            <div class="menu-item">
+                <div class="item-info">
+                    {% if item.image_data %}
+                    <img src="data:image/jpeg;base64,{{ item.image_data }}" alt="{{ item.name }}" style="width=50%" >
+                    {% else %}
+                    <p>No image available</p>
+                    {% endif %}
+                </div>
+
+                <div class="detail-order">
+                    <div class="details">
+                        <h3 class="item-name">{{ item.name }}</h3>
+                        <p>Price: ${{ item.price }}</p>
+                        <p>Description: {{ item.description }}</p>
+                        <p>Rating: <span class="rating">{{ item.rating }}</span></p>
+                        <p>Preparation Time: {{ item.time }} minutes</p>
+                    </div>
+
+                    <div class="order-section">
+                        <!-- Form to place an order with a quantity field and + and - buttons -->
+                        <form action="{{ url_for('place_order') }}" method="POST">
+                            <input type="hidden" name="menu_item_id" value="{{ item._id }}">
+                            <label for="quantity_{{ item._id }}">Quantity:</label>
+                            <div class="btn-val-btn">
+                                <button type="button" onclick="decreaseQuantity('quantity_{{ item._id }}')">-</button>
+                                <input type="number" name="quantity" id="quantity_{{ item._id }}" value="1" min="1">
+                                <button type="button" onclick="increaseQuantity('quantity_{{ item._id }}')">+</button>
+                            </div>
+
+                            <button type="submit" class="order-btn">Order Now</button> <!-- Corrected button text -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No menu items found.</p>
+        {% endif %}
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Menu</p>
+    </footer>
+
+    <script>
+        function increaseQuantity(inputId) {
+            var quantityElement = document.getElementById(inputId);
+            var quantity = parseInt(quantityElement.value);
+            quantityElement.value = quantity + 1;
+        }
+
+        function decreaseQuantity(inputId) {
+            var quantityElement = document.getElementById(inputId);
+            var quantity = parseInt(quantityElement.value);
+            if (quantity > 1) {
+                quantityElement.value = quantity - 1;
+            }
+        }
+    </script>
+</body>
+</html>

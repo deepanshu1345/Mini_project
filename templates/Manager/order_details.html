@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/order_detailsstyle.css') }}"> <!-- Correct path -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Order Details</h1>
+        </div>
+    </header>
+
+    <section class="order-details">
+        <div class="container">
+            <h2>My Order</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if cart %}
+                        {% for item in cart %}
+                            <tr>
+                                <td>{{ item['item_name'] }}</td>
+                                <td>${{ item['item_price'] }}</td>
+                                <td>{{ item['quantity'] }}</td>
+                                <td>${{ item['item_price'] * item['quantity'] }}</td> <!-- Total price -->
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Your cart is empty.</td> <!-- Fallback if cart is empty -->
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="barcode">
+        <div class="container">
+            <img src="/static/images/barcode_image.jpg" alt="Barcode"> <!-- Ensure correct path -->
+        </div>
+    </section>
+
+    <section class="place-order">
+        <div class="container">
+            <form action="{{ url_for('place_order') }}" method="POST"> <!-- Correct route -->
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Order Details</p>
+    </footer>
+</body>
+</html>

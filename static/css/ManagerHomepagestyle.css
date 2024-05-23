@@ -1,0 +1,122 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.search-form {
+    margin-top: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #d32f2f;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.welcome-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.cafe-list {
+    margin-top: 50px;
+}
+
+.cafe-list h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.cafe-list ul {
+    list-style: none;
+}
+
+.cafe-list li {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.cafe-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.rating {
+    margin-left: 10px;
+}
+
+.add-new-cafe, .view-cafe-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-new-cafe:hover, .view-cafe-info:hover {
+    background-color: #388e3c;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}

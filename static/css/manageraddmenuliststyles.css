@@ -1,0 +1,115 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.add-menu-list-section {
+    margin-top: 50px;
+}
+
+.add-menu-list-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.add-menu-list-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.add-menu-list-form input[type="file"],
+.add-menu-list-form input[type="number"],
+.add-menu-list-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.add-menu-list-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.add-menu-list-form button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+}
+
+.add-menu-list-form button:hover {
+    background-color: #388e3c;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.add-item-btn,
+.update-item-btn,
+.delete-item-btn {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.add-item-btn:hover,
+.update-item-btn:hover,
+.delete-item-btn:hover {
+    background-color: #388e3c;
+}
+
+
+footer .container {
+    display: flex;
+    justify-content: center;
+}

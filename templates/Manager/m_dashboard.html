@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/managerdashbaordstyles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Manager Dashboard</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/get_manager_menu">Show Menu</a></li>
+            <li><a href="/menu/add">Add Menu</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <section class="main-content">
+        <h2>Order Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Item Ordered</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Contact</th>
+                    <th>Waiting Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if orders %}
+                    {% for order in orders %}
+                        {% for item in order['items'] %}
+                        <tr>
+                            <td>{{ order.user }}</td>
+                            <td>{{ item.item_name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.total_price }}</td>
+                            <td>{{ order.contact }}</td>
+                            <td>{{ order.waiting_time }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6">No orders found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <h2>Order Delivery Status</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Delivery Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if orders %}
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.order_id }}</td>
+                        <td>{{ order.status }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="2">No orders found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+    <footer>
+        <p>&copy; 2024 Manager Dashboard</p>
+    </footer>
+</body>
+</html>

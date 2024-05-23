@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/order_detailsstyle.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Order Details</h1>
+        </div>
+    </header>
+
+    <section class="order-details">
+        <div class="container">
+            {% if order %}
+                <h2>Order #{{ order['order_id'] }}</h2>
+                <p>Placed on: {{ order.timestamp }}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order['items'] %}
+                            <tr>
+                                <td>{{ item.item_name }}</td>
+                                <td>${{ item.item_price }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>${{ item.total_price }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <p class="subtotal">Subtotal: ${{ order['subtotal'] }}</p>
+                <p class="shipping">Shipping: ${{ order['shipping_cost'] }}</p>
+                <p class="total">Total: ${{ order['total_price'] }}</p>
+            {% else %}
+                <p>Your order is empty.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="order-status">
+        <div class="container">
+            {% if order %}
+                <h2>Order Status: {{ order.status }}</h2>
+            {% endif %}
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Order Details</p>
+    </footer>
+</body>
+</html>

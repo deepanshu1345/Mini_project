@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/managermenulistpagestyle.css') }}">
+</head>
+<body>
+<header>
+    <h1>Menu</h1>
+</header>
+<nav>
+    <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/get_manager_menu">Show Menu</a></li>
+            <li><a href="/menu/add">Add Menu</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/logout">Logout</a></li>
+    </ul>
+</nav>
+
+<section class="main-content">
+    <h2>Menu List</h2>
+    <div class="menu-items">
+        {% for item in menu_items %}
+        <div class="menu-item">
+            <!-- Displaying menu item information -->
+            <div class="item-info">
+                {% if item.image_data %}
+                <img src="data:image/jpeg;base64,{{ item.image_data }}" alt="{{ item.name }}" width="100" height="100">
+                {% else %}
+                <p>No image available</p>
+                {% endif %}
+            </div>
+
+            <div class="details">
+<!--                <h1>{{item._id}}</h1>-->
+                <h3>{{ item.name }}</h3>
+                <p>Price: ${{ item.price }}</p>
+                <p>Description: {{ item.description }}</p>
+                <p>Rating: <span class="rating">{{ item.rating }}</span> (10 reviews)</p>
+                <p>Preparation Time: {{ item.time }} minutes</p>
+            </div>
+
+            <!-- Button for update, with a link to the update_item route -->
+            <div class="actions">
+                <button class="update-btn">
+                    <a href="/update_item/{{ item._id }}">Update</a>
+                </button>
+                <button class="delete-btn" onclick="deleteMenuItem('{{ item._id }}')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <a href="/delete_menu/{{item._id}}">Delete</a>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+<footer>
+    <script>
+function deleteMenuItem(item_id) {
+    fetch(`/delete_menu/${item_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Menu item deleted successfully!");
+            window.location.href = '/get_manager_menu'; // Redirect on success
+        } else {
+            alert("Failed to delete menu item.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred while deleting the menu item.");
+    });
+}
+
+</script>
+
+    <p>&copy; 2024 Menu</p>
+</footer>
+</body>
+</html>

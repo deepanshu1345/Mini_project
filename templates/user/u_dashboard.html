@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Café - Halt Hunger</title>
+    <link rel="stylesheet" href="/static/css/userlandingstyle.css"> <!-- Ensure correct path to CSS -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="/static/logo.png" alt="Halt Hunger Logo" width="60px" height="60px">
+            <h1>Halt Hunger</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/display_order">Order</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="cafes">
+        <div class="container">
+            <h3>Select Your Café</h3>
+            <div class="cafe-list">
+                {% if cafes %}
+                    {% for cafe in cafes %}
+                        <div class="cafe-card">
+                            <a href="{{ url_for('get_user_menu', obj_id=cafe._id) }}"> <!-- Correct route -->
+                                {% if cafe['cimage'] %}
+                                    <img src="data:image.jpeg;base64,{{ cafe.cimage }}" alt="{{ cafe['cafe_name'] }}">
+                                {% else %}
+                                    <p>No image available</p>  <!-- Fallback message -->
+                                {% endif %}
+                                <h4>{{ cafe['cafe_name'] }}</h4>
+                                <p>Rating: 4.5</p>  <!-- Example placeholder -->
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No cafés available at this time. Please check back later.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Halt Hunger. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

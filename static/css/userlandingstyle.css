@@ -1,0 +1,249 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+ 
+    background:url(food3.png) no-repeat;
+  background-size: cover;
+}
+
+.item_info img{
+    height:100px;
+    width:100px;
+    length:100px;
+    margin-right:20px;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin:0%;
+    font-size: 50px;
+}
+h1{
+    position: relative;
+    top: -50px;
+    text-align:center;
+    margin-bottom: 20px;
+    
+}
+
+nav{
+    margin-top: -30px;
+}
+nav ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 20px;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+/* Hero section */
+.hero {
+    background-image: url('hero_image.jpg');
+    background-size: cover;
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 36px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    margin-top: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    width: 300px;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-form button:hover {
+    background-color: #d32f2f;
+}
+
+/* Cafes section */
+.cafes {
+    margin-left: 100px;
+    width: 300px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.644);
+    box-shadow: 1px 1px 10px black;
+}
+
+.cafes h3 {
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: #5b1057;
+}
+
+.cafes ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cafes ul li {
+    margin-bottom: 20px;
+}
+
+.cafes ul li img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.cafes ul li .cafe-info {
+    display: inline-block;
+}
+
+/* About section */
+.about {
+    background-color: #f9f9f9;
+    padding: 50px 0;
+}
+
+.about h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.about p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Menu section */
+.menu {
+    padding: 50px 0;
+}
+
+.menu h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.menu-item img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.menu-item-details {
+    padding: 20px;
+}
+
+.menu-item-details h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    
+}
+
+.menu-item-details p {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+/* Cart section */
+.cart {
+    padding: 50px 0;
+    
+}
+
+.cart h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    
+}
+
+.cart-item {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.cart-item img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.cart-item-details {
+    padding: 20px;
+
+}
+
+.cart-item-details h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.cart-item-details p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+footer {
+    background-color: #b62626;
+    color: #322626;
+    padding: 20px 0;
+}
+/*img{
+    width: 60px;
+    height: 60px;
+}*/
