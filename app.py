@@ -683,6 +683,26 @@ def delete_menu(item_id):
     #     return render_template('Manager/m_dashboard.html', orders=None)
 
 
+@app.route('/update_status', methods=['POST'])
+def update_status():
+    try:
+        order_id = request.form.get('order_id')
+        new_status = request.form.get('new_status')
+
+        # Update the order status in the database
+        result = orders.update_one({'_id': ObjectId(order_id)}, {'$set': {'status': new_status}})
+
+        if result.modified_count > 0:
+            flash('Order status updated successfully.', 'success')
+        else:
+            flash('Failed to update order status.', 'error')
+
+    except Exception as e:
+        print(e)
+        flash(f"Error updating order status: {e}", 'error')
+
+    return redirect(url_for('dashboard'))
+
 
 # =======================Admin============================
 

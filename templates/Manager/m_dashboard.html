@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/managerdashbaordstyles.css') }}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -22,7 +24,7 @@
     </nav>
     <section class="main-content">
         <h2>Order Details</h2>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -31,6 +33,7 @@
                     <th>Total Price</th>
                     <th>Contact</th>
                     <th>Waiting Time</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,18 +47,24 @@
                             <td>{{ item.total_price }}</td>
                             <td>{{ order.contact }}</td>
                             <td>{{ order.waiting_time }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#statusModal"
+                                        data-order-id="{{ order.order_id }}" data-order-status="{{ order.status }}">
+                                    Update Status
+                                </button>
+                            </td>
                         </tr>
                         {% endfor %}
                     {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="6">No orders found.</td>
+                        <td colspan="7">No orders found.</td>
                     </tr>
                 {% endif %}
             </tbody>
         </table>
         <h2>Order Delivery Status</h2>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Order ID</th>
@@ -78,8 +87,58 @@
             </tbody>
         </table>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="statusModalLabel">Update Order Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ url_for('update_status') }}" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="order_id" id="modalOrderId">
+                        <div class="form-group">
+                            <label for="orderStatus">Status</label>
+                            <select class="form-control" id="orderStatus" name="new_status">
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2024 Manager Dashboard</p>
     </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $('#statusModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var orderId = button.data('order-id'); // Extract info from data-* attributes
+            var orderStatus = button.data('order-status'); // Extract info from data-* attributes
+
+            var modal = $(this);
+            modal.find('#modalOrderId').val(orderId);
+            modal.find('#orderStatus').val(orderStatus);
+        });
+    </script>
 </body>
 </html>
