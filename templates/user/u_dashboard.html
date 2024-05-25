@@ -8,9 +8,12 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <img src="/static/logo.png" alt="Halt Hunger Logo" width="60px" height="60px">
-            <h1>Halt Hunger</h1>
+        <div class="container1">
+            <div class="logo">
+            <img src="/static/img/logo.png" alt="Halt Hunger Logo">
+            </div>
+            <div class="logobtn">
+                <h1>Halt Hunger</h1>
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
@@ -20,6 +23,7 @@
                     <li><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
+            </div>
         </div>
     </header>
 
@@ -32,7 +36,9 @@
                         <div class="cafe-card">
                             <a href="{{ url_for('get_user_menu', obj_id=cafe._id) }}"> <!-- Correct route -->
                                 {% if cafe['cimage'] %}
+                                <div class="cafe-img">
                                     <img src="data:image.jpeg;base64,{{ cafe.cimage }}" alt="{{ cafe['cafe_name'] }}">
+                                </div>
                                 {% else %}
                                     <p>No image available</p>  <!-- Fallback message -->
                                 {% endif %}

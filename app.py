@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.secret_key = "mysecretkey"
 app.config['MONGO_DBNAME'] = 'loginex'
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/loginex'
-app.config['UPLOAD_FOLDER'] = 'static/uploads/'
+app.config['UPLOAD_FOLDER'] = 'static/img/'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB
 
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
@@ -98,16 +98,19 @@ def user():
 def login():
     if request.method == "POST":
         username = users.find_one({'username': request.form['user']})
-        # uu = request.form['user']
-        # pp = request.form["pass"]
-        # print(f"uu: {uu}    pp:{pp}")
-        # print(users.find_one({'username': request.form['user'], 'password': request.form['pass']}))
+
         if username:
             if users.find_one({'username': request.form['user'], 'password': request.form['pass']}):
                 session['user'] = request.form['user']
                 return redirect(url_for('user'))
-        return "Invalid username or password"
-    return render_template("user//userlogin.html")
+            else:
+                flash("Invalid password")
+        else:
+            flash("Invalid username")
+
+        return redirect(url_for('login'))  # Redirect to the login page to show the flash message
+
+    return render_template("user/userlogin.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -127,9 +130,12 @@ def register():
                               'password': request.form["pass"],
                               })
             session['username'] = request.form['username']
+            flash("Registration successful!", "success")
             return redirect(url_for('user'))
-        return "User already exists"
-    return render_template("user//register.html", gender=gender)
+        else:
+            flash("User already exists", "error")
+            return redirect(url_for('register'))
+    return render_template("user/register.html", gender=gender)
 
 
 @app.route('/get_user_menu/<obj_id>', methods=['GET', 'POST'])
@@ -320,14 +326,13 @@ def display_orders():
         print('overall total price:', overall_total_price)
 
         # Render the template with the list of all orders and the overall total price
-        return render_template('user/order_details.html', orders=all_orders_context, overall_total_price=overall_total_price)
+        return render_template('user/order_details.html', orders=all_orders_context,
+                               overall_total_price=overall_total_price)
 
     except Exception as e:
         print(e)
         flash(f"Error retrieving orders: {e}", "error")
         return render_template('user/order_details.html', orders=None)
-
-
 
 
 # ===============Manager======================================
@@ -393,21 +398,19 @@ def mgrdashboard():
     return redirect(url_for('manager_login'))
 
 
-
 @app.route("/manager_login", methods=["GET", "POST"])
 def manager_login():
     if request.method == "POST":
         username = Cafes.find_one({'cafe_id': request.form['user']})
-        # u = request.form['user']
-        # p = request.form['pass']
-        # print(f"u: {u}    p: {p}")
-        # print(manager.find_one({'username': request.form['user'], 'password': request.form['pass']}))
         if username:
             if Cafes.find_one({'cafe_id': request.form['user'], 'password': request.form['pass']}):
                 session['cafe_id'] = request.form['user']
                 return redirect(url_for('mgrdashboard'))
+            else:
+                flash("Invalid username or password", "error")
+        else:
             flash("Invalid username or password", "error")
-    return render_template("Manager//mgrlogin.html")
+    return render_template("Manager/mgrlogin.html")
 
 
 @app.route("/manager_register", methods=["GET", "POST"])
@@ -678,10 +681,10 @@ def delete_menu(item_id):
 #
 #         return render_template('Manager/m_dashboard.html', orders=all_orders_context, overall_total_price=overall_total_price)
 
-    # except Exception as e:
-    #     print(e)
-    #     flash(f"Error retrieving orders: {e}", "error")
-    #     return render_template('Manager/m_dashboard.html', orders=None)
+# except Exception as e:
+#     print(e)
+#     flash(f"Error retrieving orders: {e}", "error")
+#     return render_template('Manager/m_dashboard.html', orders=None)
 
 
 @app.route('/update_status', methods=['POST'])
@@ -709,28 +712,15 @@ def update_status():
 @app.route("/admin")
 def admindashboard():
     if 'admin' in session:
-        # Get query parameters for pagination
-        page = int(request.args.get('page', 1))
-        type = request.args.get('type')  # 'user' or 'manager'
+        user = users.find({})
+        manager = Cafes.find({})
+        Users = list(user)
+        Managers = list(manager)
+        print(Users)
+        # print(Managers)
 
-        # Calculate the offset to skip the entries for previous pages
-        offset = (page - 1) * ENTRIES_PER_PAGE
+        return render_template('Admin/a_dashboard.html', users=Users, managers=Managers)
 
-        # Query the database based on the type
-        if type == 'user':
-            entries = users.find().skip(offset).limit(ENTRIES_PER_PAGE)
-            total_entries = users.count_documents({})
-        elif type == 'manager':
-            entries = Cafes.find().skip(offset).limit(ENTRIES_PER_PAGE)
-            total_entries = Cafes.count_documents({})
-        else:
-            # If type is not specified or invalid, return an error message
-            return "Invalid type parameter"
-
-        # Calculate total number of pages
-        total_pages = (total_entries + ENTRIES_PER_PAGE - 1) // ENTRIES_PER_PAGE
-
-        return render_template('view_database.html', entries=entries, page=page, total_pages=total_pages, type=type)
     return redirect(url_for('admin_login'))
 
 
@@ -743,8 +733,12 @@ def admin_login():
             if admin.find_one({'username': request.form['user'], 'password': request.form['pass']}):
                 session['admin'] = request.form['user']
                 return redirect(url_for('admindashboard'))
-            return "Invalid username or password"
-    return render_template("Admin//adminlogin.html")
+            else:
+                flash("Invalid username or password", "error")
+        else:
+            flash("Invalid username or password", "error")
+    return render_template("Admin/adminlogin.html")
+
 
 
 # @app.route("/addadmin", methods=["GET", "POST"])
@@ -764,7 +758,43 @@ def admin_login():
 #     return render_template("adminreg.html")
 
 
-#==================Logout=====================
+@app.route('/update_profile/<user_type>/<user_id>', methods=['GET', 'POST'])
+def update_profile(user_type, user_id):
+    if user_type == 'user':
+        collection = users
+    elif user_type == 'manager':
+        collection = Cafes
+    else:
+        return "Invalid user type."
+
+    user_detail = collection.find_one({"_id": ObjectId(user_id)})
+    if not user_detail:
+        return "User not found."
+
+    if request.method == 'POST':
+        new_username = request.form.get('username')
+        new_email = request.form.get('email')
+        new_phone = request.form.get('phone')
+        new_password = request.form.get('password')
+
+        update_data = {
+            "username": new_username,
+            "email": new_email,
+            "phone": new_phone,
+            "password": new_password,
+        }
+
+        try:
+            collection.update_one({"_id": ObjectId(user_id)}, {"$set": update_data})
+            flash("Profile updated successfully.", "success")
+            return redirect(url_for('dashboard'))  # Assuming this is the dashboard route for users
+        except Exception as e:
+            flash(f"Error updating profile: {e}", "error")
+
+    return render_template('Admin//update_profile.html', user=user_detail)
+
+
+# ==================Logout=====================
 @app.route('/logout')
 def logout():
     session.clear()

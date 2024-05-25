@@ -33,6 +33,28 @@ html,body{
   border-radius: 15px 15px 0 0;
   background: linear-gradient(-135deg, #212021, #1d1d1e);
 }
+
+.flash-message {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #d9534f;
+    background-color: #f2dede;
+    color: #a94442;
+    border-radius: 4px;
+    text-align: center;
+}
+
+
+.flash-messages ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.flash-messages li {
+    margin-bottom: 5px;
+}
+
 .wrapper form{
   padding: 10px 30px 50px 30px;
 }

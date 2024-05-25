@@ -17,6 +17,26 @@ body{
   color: #fff;
   background: #e0d6db;
 }
+
+.flash-messages {
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.flash-message.success {
+    border: 1px solid #5cb85c;
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.flash-message.error {
+    border: 1px solid #d9534f;
+    background-color: #f2dede;
+    color: #a94442;
+}
+
 .container{
   width: 330px;
   background: #fff;

@@ -17,6 +17,8 @@ html,body{
   background: #e9ebed;
   color: #e8e3e3;
 }
+
+
 .wrapper{
   width: 380px;
   background: #fff;
@@ -42,6 +44,25 @@ html,body{
   margin-top: 20px;
   position: relative;
 }
+.flash-messages {
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.flash-message.success {
+    border: 1px solid #5cb85c;
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.flash-message.error {
+    border: 1px solid #d9534f;
+    background-color: #f2dede;
+    color: #a94442;
+}
+
 .wrapper form .field input{
   height: 100%;
   width: 100%;

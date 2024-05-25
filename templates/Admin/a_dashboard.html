@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
-    <link rel="stylesheet" href="static/css/homeadminstyles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homeadminstyles.css') }}">
 </head>
 <body style="background-color: #f2f2f2;">
     <header>
         <div class="logo">
-            <img src="halt_hunger_logo.png" alt="Halt Hunger Logo">
+            <img src="static/img/logo.png" alt="Halt Hunger Logo">
         </div>
         <h1>Admin Page</h1>
     </header>
@@ -32,11 +32,27 @@
                         <th>Gender</th>
                         <th>Username</th>
                         <th>Password</th>
-                        <th>Birth Date</th>
+                        <th>Action</th>  <!-- Add Action column for update button -->
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Populate user database entries here -->
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.fname }}</td>
+                        <td>{{ user.lname }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.gender }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.password }}</td>
+                        <td>
+                            <button>
+                              <a href="/update_profile/user/{{ user._id }}">Update</a>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -54,11 +70,28 @@
                         <th>Username</th>
                         <th>Password</th>
                         <th>Cafe Name</th>
-
+                        <th>Action</th>  <!-- Add Action column for update button -->
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Populate manager database entries here -->
+                    {% for manager in managers %}
+                    <tr>
+                        <td>{{ manager.fname }}</td>
+                        <td>{{ manager.lname }}</td>
+                        <td>{{ manager.phone }}</td>
+                        <td>{{ manager.email }}</td>
+                        <td>{{ manager.location }}</td>
+                        <td>{{ manager.cafe_id }}</td>
+                        <td>{{ manager.password }}</td>
+                        <td>{{ manager.cafe_name }}</td>
+                        <td>
+                            <button>
+                                <a href="/update_profile/manager/{{ manager._id }}">Submit</a>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -80,7 +113,7 @@
         }
 
         // Open the default tab on page load
-        document.getElementById("defaultOpen").click();
+        document.getElementsByClassName("tablinks")[0].click();
     </script>
 </body>
 </html>

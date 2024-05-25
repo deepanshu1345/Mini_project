@@ -11,6 +11,14 @@
          <div class="title">
             Login Form
          </div>
+         <!-- Flash message section -->
+         {% with messages = get_flashed_messages() %}
+            {% if messages %}
+               <div class="flash-message">
+                  {{ messages[0] }}
+               </div>
+            {% endif %}
+         {% endwith %}
          <form method="post">
             <div class="field">
                <input type="text" id="Email" name="user" required>

@@ -13,11 +13,30 @@ body {
   background-size: cover;
 }
 
+.logobtn{
+    display:flex;
+        justify-content: space-between;
+    margin-left: 90px;
+
+}
 .item_info img{
     height:100px;
     width:100px;
     length:100px;
     margin-right:20px;
+}
+
+.cafe-img img{
+    height:270px;
+    width:245px;
+    border-radius:5px;
+}
+.cafe-card{
+    padding:10px;
+    margin:10px;
+    text-align:center;
+    border-radius:5%;
+    box-shadow:1px 1px 9px #7c7c7c;
 }
 
 .container {
@@ -29,11 +48,13 @@ header {
     background-color: #333;
     color: #fff;
     padding: 10px 0;
+    height:75px;
 }
 
 header h1 {
-    margin:0%;
     font-size: 50px;
+    padding:50px 0 0;
+
 }
 h1{
     position: relative;
@@ -45,10 +66,11 @@ h1{
 
 nav{
     margin-top: -30px;
+
 }
 nav ul {
     margin: 0px;
-    padding: 0px;
+    padding: 50px;
 }
 
 nav ul li {
@@ -92,6 +114,12 @@ nav ul li a:hover {
     width: 300px;
 }
 
+.container1 img{
+    position:absolute;
+    width:85px;
+
+}
+
 .search-form button {
     padding: 10px 20px;
     background-color: #f44336;
@@ -105,19 +133,22 @@ nav ul li a:hover {
     background-color: #d32f2f;
 }
 
+.container h3{
+    text-align: center;
+}
 /* Cafes section */
 .cafes {
     margin-left: 100px;
-    width: 300px;
+    width: 90%;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.644);
-    box-shadow: 1px 1px 10px black;
 }
-
+.cafe-list{
+    display: flex;
+}
 .cafes h3 {
     font-size: 30px;
     margin-bottom: 30px;
-    color: #5b1057;
 }
 
 .cafes ul {
@@ -242,6 +273,9 @@ footer {
     background-color: #b62626;
     color: #322626;
     padding: 20px 0;
+    position: absolute;
+    bottom:0;
+    width:100%;
 }
 /*img{
     width: 60px;
