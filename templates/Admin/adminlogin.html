@@ -5,8 +5,29 @@
       <meta charset="utf-8">
       <title>Login Form Design | CodeLab</title>
       <link rel="stylesheet" href="static/css/adminstyle.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+      <style>
+         /* Additional CSS for the back button */
+         .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ffffff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+         }
+      </style>
    </head>
    <body>
+      <!-- Back button HTML -->
+      <button class="back-button" onclick="goBack()">
+         <i class="fas fa-arrow-left"></i>
+      </button>
+
       <div class="wrapper">
          <div class="title">
             Login Form

@@ -716,7 +716,7 @@ def admindashboard():
         manager = Cafes.find({})
         Users = list(user)
         Managers = list(manager)
-        print(Users)
+        # print(Users)
         # print(Managers)
 
         return render_template('Admin/a_dashboard.html', users=Users, managers=Managers)
@@ -760,6 +760,9 @@ def admin_login():
 
 @app.route('/update_profile/<user_type>/<user_id>', methods=['GET', 'POST'])
 def update_profile(user_type, user_id):
+    print(f"Request method: {request.method}")
+    print(f"Form data: {request.form}")
+
     if user_type == 'user':
         collection = users
     elif user_type == 'manager':
@@ -777,6 +780,11 @@ def update_profile(user_type, user_id):
         new_phone = request.form.get('phone')
         new_password = request.form.get('password')
 
+        print(f"new_username: {new_username}")
+        print(f"new_email: {new_email}")
+        print(f"new_phone: {new_phone}")
+        print(f"new_password: {new_password}")
+
         update_data = {
             "username": new_username,
             "email": new_email,
@@ -784,14 +792,17 @@ def update_profile(user_type, user_id):
             "password": new_password,
         }
 
+        print(update_data)
         try:
             collection.update_one({"_id": ObjectId(user_id)}, {"$set": update_data})
             flash("Profile updated successfully.", "success")
-            return redirect(url_for('dashboard'))  # Assuming this is the dashboard route for users
+            return redirect(url_for('dashboard'))
         except Exception as e:
             flash(f"Error updating profile: {e}", "error")
 
-    return render_template('Admin//update_profile.html', user=user_detail)
+    return render_template('Admin/update_profile.html', user=user_detail)
+
+
 
 
 # ==================Logout=====================

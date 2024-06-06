@@ -12,7 +12,7 @@
     </header>
     <main>
         <div class="form-container">
-            <form action="{{ url_for('admindashboard')}}" method="GET">
+            <form method="post" action="{{ url_for('update_profile', user_type=user_type, user_id=user._id) }}">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" value="{{ user['username'] }}" required>
